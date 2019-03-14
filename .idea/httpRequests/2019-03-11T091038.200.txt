@@ -1,0 +1,9 @@
+111222333
+qqq
+rrr
+sss
+666999666
+aeiou
+fgfgfg
+kkkkkkkkkkk
+UPDATE libri SET isbn='666999666',titolo='aeiou',autore='fgfgfg',casaed='kkkkkkkkkkk' WHERE isbn='111222333',titolo='qqq',autore='rrr',casaed='sss';

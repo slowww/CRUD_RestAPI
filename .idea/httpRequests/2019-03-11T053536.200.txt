@@ -1,0 +1,2 @@
+INSERT INTO libri (isbn,titolo,autore,casaed) VALUES ('111222333','qqq','rrr','sss');
+Inserimento avvenuto correttamente

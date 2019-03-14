@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="untitled:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/untitled_war</output-path>
+    <root id="archive" name="untitled_war.war">
+      <element id="artifact" artifact-name="untitled:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="mariadb-java-client-2.4.0" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.15" />
+          <element id="library" level="project" name="json-20180813" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

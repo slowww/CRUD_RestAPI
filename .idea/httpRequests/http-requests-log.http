@@ -1,0 +1,372 @@
+DELETE http://localhost:8080/?isbn=676767676
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T101419.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T100743.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T100632.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T100623.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T100537.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T100235.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T095824.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T095455.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T095220.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T091038.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss&new_isbn=666999666&new_titolo=aeiou&new_autore=fgfgfg&new_casaed=kkkkkkkkkkk
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T054930.200.txt
+
+###
+
+POST http://localhost:8080/?isbn=111222333&titolo=qqq&autore=rrr&casaed=sss
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-11T053536.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T052243.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T034447.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T034302.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T033739.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T033617.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T032103.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T031327.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T030637.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T030146.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T015136.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T015103.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T014930.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T014746.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T010022.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&new_isbn=333444555&new_titolo=fff&new_autore=ggg&new_casaed=hhh
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T122944.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&new_isbn=333444555&new_titolo=fff&new_autore=ggg&new_casaed=hhh
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&new_isbn=333444555&new_titolo=fff&new_autore=ggg&new_casaed=hhh
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&new_isbn=333444555&new_titolo=fff&new_autore=ggg&new_casaed=hhh
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&new_isbn=333444555&new_titolo=fff&new_autore=ggg&new_casaed=hhh
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno&which_isbn=212121212&which_titolo=boh&which_autore=bohboh&which_casaed=boooooooo
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno&which_isbn=212121212&which_titolo=boh&which_autore=bohboh&which_casaed=boooooooo
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno&which_isbn=212121212&which_titolo=boh&which_autore=bohboh&which_casaed=boooooooo
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-06T110120.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&which_isbn=474747474&which_titolo=dadadada&which_autore=hghghghg&which_casaed=vbvbvbvbvb
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-05T071939.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&which_isbn=474747474&which_titolo=dadadada&which_autore=hghghghg&which_casaed=vbvbvbvbvb
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-05T071559.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&which_isbn=474747474&which_titolo=dadadada&which_autore=hghghghg&which_casaed=vbvbvbvbvb
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-05T071551.200.txt
+
+###
+
+PUT http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc&which_isbn=474747474&which_titolo=dadadada&which_autore=hghghghg&which_casaed=vbvbvbvbvb
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-05T071407.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-05T065128.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-05T064353.200.txt
+
+###
+
+POST http://localhost:8080/?isbn=121212121&titolo=aaa&autore=bbb&casaed=ccc
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-05T064238.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-03-05T063813.200.txt
+
+###
+
+DELETE http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+DELETE http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno&which_isbn=898989898&which_titolo=w dio&which_autore=papa francesco&which_casaed=paradiso
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno&which_isbn=898989898&which_titolo=w dio&which_autore=papa francesco&which_casaed=paradiso
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno&which_isbn=898989898&which_titolo=w dio&which_autore=papa francesco&which_casaed=paradiso
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno&which_isbn=898989898&which_titolo=w dio&which_autore=papa francesco&which_casaed=paradiso
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+PUT http://localhost:8080/?isbn=676767676&titolo=wlf&autore=satana&casaed=inferno&which_isbn=898989898&which_titolo=w dio&which_autore=papa francesco&which_casaed=paradiso
+Accept: */*
+Cache-Control: no-cache
+
+###
+
