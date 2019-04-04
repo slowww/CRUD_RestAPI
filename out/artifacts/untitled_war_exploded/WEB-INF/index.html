@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prova</title>
+</head>
+<body>
+
+
+<button onclick="getApiData()">GET DATA</button>
+
+<div id="demo"></div>
+</body>
+</html>
+
+<script>
+
+    function getApiData() {
+
+        var req =  new XMLHttpRequest();
+        req.open ('GET' , 'www.localhost:8080/endpointapi' , true);
+
+        req.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                document.getElementById("demo").innerHTML = this.responseXML;
+            }
+        };
+
+        req.send();
+
+
+    }
+
+
+</script>
