@@ -7,14 +7,12 @@
         <servlet-name>Servlet</servlet-name>
         <servlet-class>Servlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Servlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Servlet</servlet-name>
         <url-pattern>/endpointapi</url-pattern>
     </servlet-mapping>
+
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

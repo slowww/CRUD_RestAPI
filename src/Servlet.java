@@ -6,10 +6,9 @@ import org.json.JSONObject;
 import org.mariadb.jdbc.MariaDbDataSource;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.WebEndpoint;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Enumeration;

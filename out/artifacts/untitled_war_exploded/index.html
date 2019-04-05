@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {font-family: sans-serif;}
+    </style>
+    <meta charset="UTF-8">
+    <title>Prova</title>
+</head>
+<body>
+
+
+<button onclick="getApiData()">GET DATA</button>
+
+<div id="demo"></div>
+</body>
+</html>
+
+<script>
+
+    function getApiData() {
+
+        var req =  new XMLHttpRequest();
+        req.responseType = "json";
+
+        var body="";
+        req.open ('GET' , '/endpointapi' , true);
+
+
+        req.onreadystatechange = function() {
+            var jsonresponse = req.response;
+            if (this.readyState == 4 && this.status == 200) {
+                body +="<br><table border='1'><tr><td>ISBN</td><td>TITOLO</td><td>AUTORE</td><td>CASA ED.</td></tr>";
+                jsonresponse.forEach(function (obj) {
+
+                    body+="<tr><td>" + obj.isbn +"</td><td>"+obj.titolo+"</td><td>"+obj.autore+"</td><td>"+obj.casaed+"</td></tr>";
+
+                });
+                body+="</table>";
+                document.getElementById("demo").innerHTML = body;
+            }
+        };
+
+
+        req.send();
+
+
+    }
+
+
+</script>
