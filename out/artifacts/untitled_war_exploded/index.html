@@ -6,46 +6,270 @@
     </style>
     <meta charset="UTF-8">
     <title>Prova</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+
+
 </head>
 <body>
+<h2>BIBLIOTECA - Dario Iosca 5IAS</h2>
+
+<!--BOTTONE LISTA LIBRI-->
+<button onclick="getBooks()">Lista libri</button><br><br>
+
+<input type="text" id="id_ut" name="id_ut" placeholder="ricerca tramite id utente">
+<button onclick="getRentsbyId()">Lista operazioni biblioteca</button><br><br>
+
+<input type="text" id="isbnlist" name="isbn" placeholder="ricerca tramite isbn">
+<button onclick="getRentsbyIsbn()">Lista operazioni biblioteca</button><br><br>
 
 
-<button onclick="getApiData()">GET DATA</button>
+<!--INSERIMENTO NUOVO LIBRO-->
+<h3>Inserimento libro</h3>
+<form id="insertform" action="/dario">
+<label>ISBN: </label><input type="text" id="isbn">
+<label>TITOLO: </label><input type="text" id="titolo">
+<label>AUTORE: </label><input type="text" id="autore">
+<label>CASA ED.: </label><input type="text" id="casaed">
+<input type="button" id="insert_book" value="Aggiungi libro">
+</form>
+
+
+<!--INSERIMENTO NOLEGGIO/RICONSEGNA-->
+<h3>Inserimento noleggio/restituzione</h3>
+<form id="rentform" action="/dario">
+    <label>NOME: </label><input type="text" name="nome" id="nome">
+    <label>COGNOME: </label><input type="text" name="cogn" id="cogn">
+    <label>ISBN: </label><input type="text" name="isbnins" id="isbnins">
+    <label>Operazione: </label>
+    <select id="op">
+        <option value="noleggio">Noleggio</option>
+        <option value="restituzione">Restituzione</option>
+    </select>
+<input type="button" id="insert_op" value="Inserisci operazione">
+</form>
+
+
+
+
+<!--RICERCA CON AUTOCOMPLETE
+<input type="text" id="auto">-->
+
 
 <div id="demo"></div>
+
 </body>
 </html>
 
 <script>
-
-    function getApiData() {
-
+//lista libri
+    function getBooks() {
         var req =  new XMLHttpRequest();
         req.responseType = "json";
-
         var body="";
-        req.open ('GET' , '/endpointapi' , true);
-
-
+        req.open ('GET' , '/api/libri' , true);
         req.onreadystatechange = function() {
             var jsonresponse = req.response;
             if (this.readyState == 4 && this.status == 200) {
-                body +="<br><table border='1'><tr><td>ISBN</td><td>TITOLO</td><td>AUTORE</td><td>CASA ED.</td></tr>";
+                body +="<br><table id='booklist' border='1'><tr><td>ISBN</td><td>TITOLO</td><td>AUTORE</td><td>CASA ED.</td></tr>";
                 jsonresponse.forEach(function (obj) {
 
-                    body+="<tr><td>" + obj.isbn +"</td><td>"+obj.titolo+"</td><td>"+obj.autore+"</td><td>"+obj.casaed+"</td></tr>";
+                    body+="<tr><td>" + obj.isbn+"</td><td>"+obj.titolo+"</td><td>"+obj.autore+"</td><td>"+obj.casaed+"</td></tr>";
 
                 });
                 body+="</table>";
                 document.getElementById("demo").innerHTML = body;
             }
         };
-
-
         req.send();
-
-
     }
 
+    </script>
 
+<script>
+//inserimento libro
+        $(document).ready(function() {
+            $("#insert_book").click(function(){
+
+                var isbn = $("#isbn").val();
+                var titolo = $("#titolo").val();
+                var autore = $("#autore").val();
+                var casaed = $("#casaed").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/api/libri",
+                    data: "isbn=" + isbn + "&titolo=" + titolo + "&autore=" + autore + "&casaed=" + casaed,
+                    dataType: "html",
+                    success: function()
+                    {
+                        if($("#booklist"))
+                        {
+                            $("#booklist").append("<tr><td>"+isbn+"</td><td>"+titolo+"</td><td>"+autore+"</td><td>"+casaed+"</td></tr>");
+                        }else
+                        {
+                            alert('Libro inserito correttamente!');
+                        }
+
+                    },
+                    error: function()
+                    {
+                        alert("Errore nell'inserimento.");
+                    }
+                });
+            });
+        });
 </script>
+
+<script>
+    //inserimento prestito o riconsegna OK
+    $(document).ready(function() {
+        $("#insert_op").click(function(){
+
+            var nome = $("#nome").val();
+            var cogn = $("#cogn").val();
+            var isbn = $("#isbnins").val();
+            var op = $("#op").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/api/prestiti",
+                data: "nome_ut=" + nome + "&cogn_ut=" + cogn + "&isbn=" + isbn + "&tipo_op=" + op,
+                dataType: "html",
+                success:
+                    function()
+                    {
+                        alert('Inserimento avvenuto correttamente!');
+                    },
+                error: function()
+                {
+                    alert("Errore nell'inserimento.");
+                }
+            });
+        });
+    });
+</script>
+
+
+<script>
+    //lista noleggi e riconsegne tramite id utente OK
+    function getRentsbyId() {
+        var req =  new XMLHttpRequest();
+        req.responseType = "json";
+        var id_ut = document.getElementById("id_ut").value;
+        var body="";
+        req.open ('GET' , '/api/prestiti?id_ut='+id_ut, true);
+        req.onreadystatechange = function() {
+            var jsonresponse = req.response;
+            if (this.readyState == 4 && this.status == 200) {
+                body +="<br><table id='tab' border='1'><tr><td>ID OPERAZIONE</td><td>TIPO OPERAZIONE</td><td>DATA OPERAZIONE</td><td>ID UTENTE</td><td>ISBN</td></tr>";
+                jsonresponse.forEach(function (obj) {
+
+                    body+="<tr><td>" + obj.id_op+"</td><td>"+obj.tipo_op+"</td><td>"+obj.data_op+"</td><td>"+obj.id_ut_fk+"</td><td>"+obj.isbn_fk+"</td></tr>";
+
+                });
+                body+="</table>";
+                document.getElementById("demo").innerHTML = body;
+            }
+        };
+        req.send();
+    }
+</script>
+
+<script>
+    //lista noleggi e riconsegne tramite isbn OK
+    function getRentsbyIsbn() {
+        var req =  new XMLHttpRequest();
+        req.responseType = "json";
+        var isbn = document.getElementById("isbnlist").value;
+        var body="";
+        req.open ('GET' , '/api/prestiti?isbn='+isbn, true);
+        req.onreadystatechange = function() {
+            var jsonresponse = req.response;
+            if (this.readyState == 4 && this.status == 200) {
+                body +="<br><table id='tab' border='1'><tr><td>ID OPERAZIONE</td><td>TIPO OPERAZIONE</td><td>DATA OPERAZIONE</td><td>ID UTENTE</td><td>ISBN</td></tr>";
+                jsonresponse.forEach(function (obj) {
+
+                    body+="<tr><td>" + obj.id_op+"</td><td>"+obj.tipo_op+"</td><td>"+obj.data_op+"</td><td>"+obj.id_ut_fk+"</td><td>"+obj.isbn_fk+"</td></tr>";
+
+                });
+                body+="</table>";
+                document.getElementById("demo").innerHTML = body;
+            }
+        };
+        req.send();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    /*AUTOCOMPLETE
+    $(document).on("keydown.autocomplete", "#auto", function(e){
+        $(this).autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url: "/dario/endpointapi",
+                    type: "GET",
+                    dataType: "json",
+                    data: {"auto": request.term},
+                    success: function(data){
+                        response(data);
+                        //console.log(data);
+                    },
+                    error: function(error){
+                        console.log("Error:");
+                        console.log(error);
+                    }
+                });
+            },
+            minLength: 2,
+            /*select: function( event, ui ) {
+                $(this).closest('tr').find('.atc').val(ui.item.id);
+                //$("#testAjax").val(ui.item.id);
+            },
+            open: function() {
+                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
+        });
+    });
+*/
+</script>
+
+
+

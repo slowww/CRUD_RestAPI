@@ -1,0 +1,68 @@
+[
+  {
+    "titolo": "I promessi sposi",
+    "isbn": "111111111",
+    "casaed": "Laterza",
+    "autore": "Alessandro Manzoni"
+  },
+  {
+    "titolo": "La divina commedia",
+    "isbn": "222222222",
+    "casaed": "Laterza",
+    "autore": "Dante Alighieri"
+  },
+  {
+    "titolo": "Pulp",
+    "isbn": "333333333",
+    "casaed": "Feltrinelli",
+    "autore": "Charles Bukovskij"
+  },
+  {
+    "titolo": "It",
+    "isbn": "444444444",
+    "casaed": "Giunti",
+    "autore": "Stephen King"
+  },
+  {
+    "titolo": "1984",
+    "isbn": "555555555",
+    "casaed": "Feltrinelli",
+    "autore": "George Orwell"
+  },
+  {
+    "titolo": "Pinocchio",
+    "isbn": "666666666",
+    "casaed": "Einaudi",
+    "autore": "Giorgio Collodi"
+  },
+  {
+    "titolo": "Il capitale",
+    "isbn": "777777777",
+    "casaed": "Feltrinelli",
+    "autore": "Karl Marx"
+  },
+  {
+    "titolo": "Rosso Malpelo",
+    "isbn": "888888888",
+    "casaed": "Giunti",
+    "autore": "Giovanni Verga"
+  },
+  {
+    "titolo": "Java 8",
+    "isbn": "999999999",
+    "casaed": "Einaudi",
+    "autore": "Michele Mastroianni"
+  },
+  {
+    "titolo": "oh",
+    "isbn": "oh",
+    "casaed": "oh",
+    "autore": "oh"
+  },
+  {
+    "titolo": "si",
+    "isbn": "si",
+    "casaed": "si",
+    "autore": "si"
+  }
+]

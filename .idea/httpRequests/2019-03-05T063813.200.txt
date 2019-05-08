@@ -1,1 +1,0 @@
-DELETE FROM libri WHERE isbn = 676767676, titolo=wlf, autore=satana, casaed=inferno;

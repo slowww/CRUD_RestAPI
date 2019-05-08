@@ -1,2 +1,0 @@
-INSERT INTO libri (isbn,titolo,autore,casaed) VALUES ('121212121','aaa','bbb','ccc');
-Inserimento avvenuto correttamente

@@ -2,6 +2,7 @@
 
 import org.json.JSONArray;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.mariadb.jdbc.MariaDbDataSource;
 
@@ -10,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import java.sql.*;
 import java.util.Enumeration;
 
@@ -258,7 +260,14 @@ public class Servlet extends javax.servlet.http.HttpServlet {
         String titolo="";
         String autore="";
         String casaed="";
-        response.setContentType("plain/text");
+        String tipo_op="";
+        String nome_ut="";
+        String cogn_ut="";
+        int id_ut=0;
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        response.setContentType("application/json");
 
         try {
             MariaDbDataSource dataSource = new MariaDbDataSource();
@@ -306,28 +315,144 @@ public class Servlet extends javax.servlet.http.HttpServlet {
                             casaed = paramValue;
                         }
                         break;
+                    case "tipo_op":
+                        if (paramValue != null) {
+                            tipo_op = paramValue;
+                        }
+                        break;
+                    case "id_ut":
+                        if (paramValue != null) {
+                            id_ut = Integer.parseInt(paramValue);
+                        }
+                        break;
+                    case "nome_ut":
+                        if (paramValue != null) {
+                            nome_ut = paramValue;
+                        }
+                        break;
+                    case "cogn_ut":
+                        if (paramValue != null) {
+                            cogn_ut = paramValue;
+                        }
+                        break;
+
                 }
 
 
             }
 
-            query += "(" + "'" + isbn + "'" + "," + "'" + titolo + "'" + "," + "'" + autore + "'" + "," + "'" + casaed + "'" + ");";
-
-            response.getWriter().println(query);
-
-            int value = stmt.executeUpdate(query);
-
-            if(value!=0)
+            switch(request.getRequestURI())
             {
-                response.getWriter().println("Inserimento avvenuto correttamente");
+                case "/api/libri":
+                    //INSERIMENTO LIBRO
+                    query += "(" + "'" + isbn + "'" + "," + "'" + titolo + "'" + "," + "'" + autore + "'" + "," + "'" + casaed + "'" + ");";
 
-            }else
-            {
-                response.getWriter().println("Inserimento non avvenuto");
+                    //response.getWriter().println(query);
+
+                    int value = stmt.executeUpdate(query);
+
+
+                    if(value!=0)
+                    {
+                        jsonObject.put("response_code",201);
+                        jsonArray.put(jsonObject);
+
+                    }else
+                    {
+                        jsonObject.put("response_code",400);
+                        jsonArray.put(jsonObject);
+                    }
+
+                    response.getWriter().println(jsonArray);//stampo
+                    stmt.close();
+                    conn.close();
+                    break;
+
+                case "/api/prestiti":
+                    //prima, ricerca id utente tramite nome e cognome
+                    PreparedStatement pstmt = conn.prepareStatement("SELECT id_ut FROM utenti WHERE nome_ut=? AND cogn_ut=?");
+                    pstmt.setString(1,nome_ut);
+                    pstmt.setString(2,cogn_ut);
+
+                    ResultSet rs= pstmt.executeQuery();
+                    while(rs.next())
+                    {
+                        id_ut = rs.getInt("id_ut");//ottengo l'id dell'utente
+                    }
+
+                    /*
+                    * AGGIUNTA: inserire boolean su libri che identifica la disponibilità (1=disponibile 0=non disponibile)
+                    * dunque, se tipo_op = noleggio verifico se il boolean del libro è 1 altrimenti
+                    * ritorno un response code 400
+                    * */
+
+                    if(tipo_op.equalsIgnoreCase("noleggio"))
+                    {
+                        pstmt = conn.prepareStatement("SELECT disponibile FROM libri WHERE isbn=?");
+                        pstmt.setString(1,isbn);
+                        rs = pstmt.executeQuery();
+                        boolean disponibile=false;
+                        while(rs.next())
+                        {
+                            disponibile = rs.getBoolean("disponibile");
+                        }
+                        if(disponibile)//se il libro è disponibile
+                        {
+                            pstmt = conn.prepareStatement("INSERT INTO op VALUES (NULL,?,NULL,?,?)");
+                            pstmt.setString(1,tipo_op);
+                            pstmt.setInt(2,id_ut);
+                            pstmt.setString(3,isbn);
+                            value = pstmt.executeUpdate();
+
+                            if(value!=0)
+                            {
+                                jsonObject.put("response_code",201);
+                                jsonArray.put(jsonObject);
+
+                            }else
+                            {
+                                jsonObject.put("response_code",400);
+                                jsonArray.put(jsonObject);
+                            }
+
+                            response.getWriter().println(jsonArray);//stampo
+                            stmt.close();
+                            conn.close();
+                        }else//se non disponibile
+                        {
+                            jsonObject.put("response_code",500);
+                            jsonArray.put(jsonObject);
+                            response.getWriter().println(jsonArray);//stampo
+                            stmt.close();
+                            conn.close();
+                        }
+
+                    }
+
+
+                    pstmt = conn.prepareStatement("INSERT INTO op VALUES (NULL,?,NULL,?,?)");
+                    pstmt.setString(1,tipo_op);
+                    pstmt.setInt(2,id_ut);
+                    pstmt.setString(3,isbn);
+                    value = pstmt.executeUpdate();
+
+                    if(value!=0)
+                    {
+                        jsonObject.put("response_code",201);
+                        jsonArray.put(jsonObject);
+
+                    }else
+                    {
+                        jsonObject.put("response_code",400);
+                        jsonArray.put(jsonObject);
+                    }
+
+                    response.getWriter().println(jsonArray);//stampo
+                    stmt.close();
+                    conn.close();
+                    break;
             }
 
-            stmt.close();
-            conn.close();
 
 
 
@@ -351,50 +476,228 @@ public class Servlet extends javax.servlet.http.HttpServlet {
 
         int count;
         int i;
-
+        String isbn;
 
         try{
             try{
 
+                String auto = new String();
                 MariaDbDataSource dataSource = new MariaDbDataSource();
-                dataSource.setServerName("localhost");
-                dataSource.setDatabaseName("biblioteca");
-                dataSource.setUser("root");
-                dataSource.setPassword("");
 
-                Connection conn = dataSource.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM libri");
-                /*A ResultSet is a Java object that contains the results of executing an SQL query. In other words, it contains the rows that satisfy the conditions of the query.
-                 * The data stored in a ResultSet object is retrieved through a set of get methods that allows access to the various columns of the current row.*/
+                    dataSource.setServerName("localhost");
+                    dataSource.setDatabaseName("biblioteca");
+                    dataSource.setUser("root");
+                    dataSource.setPassword("");
+                    Connection conn = dataSource.getConnection();
+                    Statement stmt = conn.createStatement();
 
                 response.setContentType("application/json");
-
                 JSONArray jsonArray = new JSONArray();
+                //JSONObject jsonObject = new JSONObject();
+                ResultSet rs;
 
-                try {
-                    while (rs.next()) {
-                        ResultSetMetaData metaData = rs.getMetaData();//ottengo nomi colonne tabella
+                //GET PER AUTOCOMPLETE
+                Enumeration<String> parameterNames = request.getParameterNames();
+                String paramValue;
+                String paramName;
 
-                        count = metaData.getColumnCount();//conto le colonne
+                switch(request.getRequestURI())
+                {
 
-                        JSONObject jsonObject = new JSONObject();//creo oggetto per contenere il json
-                        for(i=1;i<=count;i++){
+                    case "/api/libri":
+                        //codice per funzione autocomplete jquery ui (da rivedere)
+                        /*if (parameterNames.hasMoreElements())//true if and only if this enumeration object contains at least one more element to provide; false otherwise.
+                        {
+                            while (parameterNames.hasMoreElements())
+                            {
+                                paramName = parameterNames.nextElement();
+                                paramValue = request.getParameter(paramName);//ottengo il valore del parametro che ha nome *paramName*
 
-                            jsonObject.put(metaData.getColumnName(i),rs.getObject(i));//inserisco key e value nel jsonobject
-                        }
-                        jsonArray.put(jsonObject);//metto il jsonobject in un apposito array
-                    }
-                }
-                finally {
-                    rs.close();
-                }
+                                if (paramName.equalsIgnoreCase("auto") && !paramName.isEmpty())
+                                {
+                                    auto = paramValue;
+                                    try
+                                    {
+                                        PreparedStatement pstmt;
+                                        pstmt = conn.prepareStatement("SELECT titolo FROM `libri` WHERE titolo=?;");//POSSIBILE ERRORE NELLA QUERY
+                                        pstmt.setString(1, "%" + auto);
+                                        rs = pstmt.executeQuery();
 
-                response.getWriter().println(jsonArray);//stampo
+                                        while (rs.next())
+                                        {
+                                            ResultSetMetaData metaData = rs.getMetaData();//ottengo nomi colonne tabella
+                                            count = metaData.getColumnCount();//conto le colonne
+                                            JSONObject jsonObject = new JSONObject();
+                                            for (i = 1; i <= count; i++)
+                                            {
+                                                try
+                                                {
+                                                    jsonObject.put(metaData.getColumnName(i), rs.getObject(i));//inserisco key e value nel jsonobject
+                                                } catch (JSONException e)
+                                                {
+                                                    e.printStackTrace();
+                                                }
+
+                                                jsonArray.put(jsonObject);
+                                            }//for
+                                        }//while
 
 
-                stmt.close();
-                conn.close();
+                                        response.getWriter().println(jsonArray);
+                                        pstmt.close();
+                                        conn.close();
+                                    } catch (SQLException e)
+                                    {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+
+                            }//end while
+                        }//end if parameterNames.hasmoreelements
+                        else
+                        {*/
+                            //se nessun parametro è stato specificato, restituisci la lista dei libri completa
+                            try
+                            {
+                                rs = stmt.executeQuery("SELECT * FROM libri");
+                                while (rs.next())
+                                {
+
+                                    ResultSetMetaData metaData = rs.getMetaData();//ottengo nomi colonne tabella
+
+                                    count = metaData.getColumnCount();//conto le colonne
+
+                                    JSONObject jsonObject = new JSONObject();//creo oggetto per contenere il json
+                                    for (i = 1; i <= count; i++)
+                                    {
+
+                                        jsonObject.put(metaData.getColumnName(i), rs.getObject(i));//inserisco key e value nel jsonobject
+                                    }
+
+
+                                    jsonArray.put(jsonObject);//metto il jsonobject in un apposito array
+                                }
+
+
+                                response.getWriter().println(jsonArray);//stampo
+
+
+                                stmt.close();
+                                conn.close();
+                            } catch (SQLException e)
+                            {
+                                e.printStackTrace();
+                            }
+
+                        break;// case "/libri"
+
+                    case "/api/prestiti":
+                        int id_ut;
+                        while (parameterNames.hasMoreElements())
+                        {
+                            paramName = parameterNames.nextElement();
+                            paramValue = request.getParameter(paramName);//ottengo il valore del parametro che ha nome *paramName*
+
+                            switch (paramName)
+                            {
+                                case "id_ut":
+                                    //dato l'id_utente visualizzo tutte le sue operazioni presso la biblioteca
+                                    if (paramValue != null)
+                                    {
+                                        id_ut = Integer.parseInt(paramValue);
+
+                                        PreparedStatement pstmt;
+                                        pstmt = conn.prepareStatement("SELECT * FROM `op` WHERE id_ut_fk=?;");
+                                        pstmt.setInt(1,id_ut);
+                                        rs = pstmt.executeQuery();
+
+                                        try
+                                        {
+                                            while (rs.next())
+                                            {
+                                                ResultSetMetaData metaData = rs.getMetaData();//ottengo nomi colonne tabella
+                                                count = metaData.getColumnCount();//conto le colonne
+                                                JSONObject jsonObject = new JSONObject();
+                                                for (int a = 1; a<= count; a++)//CREO L'OGGETTO (un singolo utente)
+                                                {
+                                                    try
+                                                    {
+                                                        jsonObject.put(metaData.getColumnName(a), rs.getObject(a));//inserisco key e value nel jsonobject
+                                                    } catch (JSONException e)
+                                                    {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                                jsonArray.put(jsonObject);//metto l'oggetto creato nell'array
+
+                                                //i++;
+
+                                            }//end while
+                                        }finally
+                                        {
+                                            rs.close();
+                                        }
+
+                                        response.getWriter().println(jsonArray);//stampo
+                                        stmt.close();
+                                        conn.close();
+                                    }
+                                    break;
+
+                                case "isbn":
+                                    //dato l'isbn controllo da chi è stato noleggiato e riconsegnato (oppure solo noleggiato e non ancora riconsegnato)
+                                    if (paramValue != null)
+                                    {
+                                        isbn = paramValue;
+                                        PreparedStatement pstmt;
+                                        pstmt = conn.prepareStatement("SELECT * FROM `op` WHERE isbn_fk=?;");
+                                        pstmt.setString(1,isbn);
+                                        rs = pstmt.executeQuery();
+
+                                        try
+                                        {
+                                            while (rs.next())
+                                            {
+                                                ResultSetMetaData metaData = rs.getMetaData();//ottengo nomi colonne tabella
+                                                count = metaData.getColumnCount();//conto le colonne
+                                                JSONObject jsonObject = new JSONObject();
+                                                for (int a = 1; a<= count; a++)//CREO L'OGGETTO (un singolo utente)
+                                                {
+                                                    try
+                                                    {
+                                                        jsonObject.put(metaData.getColumnName(a), rs.getObject(a));//inserisco key e value nel jsonobject
+                                                    } catch (JSONException e)
+                                                    {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                                jsonArray.put(jsonObject);//metto l'oggetto creato nell'array
+
+                                                //i++;
+
+                                            }//end while
+                                        }finally
+                                        {
+                                            rs.close();
+                                        }
+
+                                        response.getWriter().println(jsonArray);//stampo
+                                        stmt.close();
+                                        conn.close();
+
+
+                                    }
+                                    break;
+
+                                /*case from
+                                 * case to*/
+                            }//end inner switch
+                        }//end while
+                }//end switch URI
+
             }catch(SQLException e){
                 response.getWriter().println("Errore SQL");
                 e.printStackTrace();
@@ -403,5 +706,5 @@ public class Servlet extends javax.servlet.http.HttpServlet {
             System.out.println("Errore IO");
         }
 
-    }
-}
+
+    }}

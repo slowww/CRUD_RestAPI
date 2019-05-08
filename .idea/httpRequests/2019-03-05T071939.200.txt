@@ -1,1 +1,0 @@
-UPDATE libri SET isbn = '474747474', titolo='dadadada', autore='hghghghg', casaed='vbvbvbvbvb' WHERE isbn = '121212121', titolo='aaa', autore='bbb', casaed='ccc';
